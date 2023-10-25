@@ -13,7 +13,7 @@ class PreferenceScreen extends StatefulWidget {
 
   static const String routeName = 'preference';
   @override
-  _PreferenceScreenState createState() => _PreferenceScreenState();
+  State<PreferenceScreen> createState() => _PreferenceScreenState();
 }
 
 class _PreferenceScreenState extends State<PreferenceScreen> {

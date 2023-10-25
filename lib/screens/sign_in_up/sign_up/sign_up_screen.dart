@@ -7,7 +7,7 @@ class SignUpScreen extends StatefulWidget {
   static const String routeName = 'sign_up';
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {

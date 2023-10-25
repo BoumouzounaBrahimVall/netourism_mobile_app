@@ -7,7 +7,8 @@ class PreferencesStep2Screen extends ConsumerStatefulWidget {
   const PreferencesStep2Screen({Key? key}) : super(key: key);
 
   @override
-  _PreferencesStep2ScreenState createState() => _PreferencesStep2ScreenState();
+  ConsumerState<PreferencesStep2Screen> createState() =>
+      _PreferencesStep2ScreenState();
 }
 
 class _PreferencesStep2ScreenState

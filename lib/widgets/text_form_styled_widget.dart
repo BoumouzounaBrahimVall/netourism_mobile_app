@@ -26,10 +26,10 @@ class TextFormStyledWidget extends StatefulWidget {
   final bool? obscureText;
 
   @override
-  _TextFormStyledWidgetState createState() => _TextFormStyledWidgetState();
+  TextFormStyledWidgetState createState() => TextFormStyledWidgetState();
 }
 
-class _TextFormStyledWidgetState extends State<TextFormStyledWidget> {
+class TextFormStyledWidgetState extends State<TextFormStyledWidget> {
   bool _isPasswordVisible = false;
   @override
   void initState() {

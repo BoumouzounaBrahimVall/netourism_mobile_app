@@ -20,14 +20,17 @@ class ButtonPrimaryWidget extends StatelessWidget {
           ),
           minimumSize: MaterialStatePropertyAll(Size(width * 0.9, 52)),
           maximumSize: MaterialStatePropertyAll(Size(width * 0.9, 52)),
-          backgroundColor: MaterialStatePropertyAll(Color(0xffEE9321)),
-          foregroundColor: MaterialStatePropertyAll(Colors.black),
+          backgroundColor: const MaterialStatePropertyAll(Color(0xffEE9321)),
+          foregroundColor: const MaterialStatePropertyAll(Colors.black),
         ),
         onPressed: () => onPressed,
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headlineSmall!.merge(TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600)),
+          style: Theme.of(context).textTheme.headlineSmall!.merge(
+              const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600)),
         ));
   }
 }

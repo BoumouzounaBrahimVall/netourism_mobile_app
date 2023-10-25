@@ -7,14 +7,14 @@ class PreferencesStep1Screen extends ConsumerStatefulWidget {
   const PreferencesStep1Screen({Key? key}) : super(key: key);
 
   @override
-  _PreferencesStep1ScreenState createState() => _PreferencesStep1ScreenState();
+  ConsumerState<PreferencesStep1Screen> createState() =>
+      _PreferencesStep1ScreenState();
 }
 
 class _PreferencesStep1ScreenState
     extends ConsumerState<PreferencesStep1Screen> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     List<String> selectedHobbies = ref.watch(selectedHobbiesProvider);
     return Column(

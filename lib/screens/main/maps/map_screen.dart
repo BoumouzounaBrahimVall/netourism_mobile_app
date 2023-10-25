@@ -29,8 +29,8 @@ class _MapScreenState extends State<MapScreen> {
               urlTemplate:
                   "https://api.mapbox.com/styles/v1/brahimvall/{id}/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}",
               additionalOptions: const {
-                "accessToken": MAPBOX_ACCESS_TOKEN,
-                "id": MAPBOX_STYLE
+                "accessToken": mapboxAccessToken,
+                "id": mapboxStyle
               },
             ),
             MarkerLayer(
@@ -69,7 +69,3 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
-
-//accessToken: pk.eyJ1IjoiYnJhaGltdmFsbCIsImEiOiJjbG8xajloZW4wOWcxMmttc20xc3cwOHBrIn0.kO4HDhXBeauDBQREZReJzA
-//id: mapbox://styles/brahimvall/clo1jlaws00dg01pkdwvib2gn
-//https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}
