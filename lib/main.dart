@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:netourism_mobile_app/maps/map_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '/routes.dart';
+import '/theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MapScreen(),
+      title: 'Netourisme',
+      theme: themeData,
+      routes: routes,
     );
   }
 }
+
+//const MapScreen(),
