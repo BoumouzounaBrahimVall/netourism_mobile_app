@@ -1,22 +1,24 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import '/components/button_primary_widget.dart';
-import '/pages/sign_in/text_form_styled.dart';
+import '../sign_up/sign_up_screen.dart';
+import '/widgets/screen_transitions_widget.dart';
+import '../../../widgets/button_primary_widget.dart';
+import '../../../widgets/text_form_styled_widget.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
-  static const String routeName = 'sign_up';
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
+  static const String routeName = 'sign_in';
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
@@ -30,51 +32,52 @@ class _SignUpPageState extends State<SignUpPage> {
                 'assets/images/netourism-logo.png',
                 scale: 1.5,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Text(
-                'Créer mon compte',
+                'Acceder a mon compte',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'Veuillez entrer votre Information',
+                'Veuillez entrer votre login',
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
-                    .merge(TextStyle(color: Color(0xff3E3E3E))),
+                    .merge(const TextStyle(color: Color(0xff3E3E3E))),
               ),
-              SizedBox(height: 16),
-              TextFormStyled(
+              const SizedBox(height: 16),
+              TextFormStyledWidget(
                   label: 'Email',
                   placeholder: 'Email',
                   icon: Icons.email,
                   validator: () => {}),
-              SizedBox(height: 16),
-              TextFormStyled(
+              const SizedBox(height: 16),
+              TextFormStyledWidget(
                   label: 'Mot de passe',
                   placeholder: 'Mot de passe',
                   icon: Icons.lock,
                   isPassword: true,
                   validator: () => {}),
-              SizedBox(height: 16),
-              TextFormStyled(
-                  label: 'Confirmation de mot de passe',
-                  placeholder: 'Confirmation de mot de passe',
-                  icon: Icons.lock,
-                  isPassword: true,
-                  validator: () => {}),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ButtonPrimaryWidget(title: 'Se connecter', onPressed: () => {}),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               RichText(
                 text: TextSpan(
-                  text: 'Vous avez un compte ? ',
+                  text: "Vous n'avez pas de compte ? ",
                   children: [
                     TextSpan(
-                        text: 'Se connecter',
-                        style: TextStyle(
+                        text: "S'inscrire",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.of(context).push(
+                              SlideTopRouteWidget(
+                                const SignUpScreen(),
+                              ),
+                            );
+                          },
+                        style: const TextStyle(
                             color: Color(0xffEE9321),
                             decoration: TextDecoration.underline,
                             fontSize: 16,
@@ -84,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       const TextStyle(color: Color(0xff979797), fontSize: 14)),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               /* Divider(
                 color: Color(0xffC7C7C7),
                 thickness: 0.5,

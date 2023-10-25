@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextFormStyled extends StatefulWidget {
-  const TextFormStyled(
+class TextFormStyledWidget extends StatefulWidget {
+  const TextFormStyledWidget(
       {Key? key,
       required this.label,
       required this.placeholder,
@@ -26,18 +26,18 @@ class TextFormStyled extends StatefulWidget {
   final bool? obscureText;
 
   @override
-  _TextFormStyledState createState() => _TextFormStyledState();
+  _TextFormStyledWidgetState createState() => _TextFormStyledWidgetState();
 }
 
-class _TextFormStyledState extends State<TextFormStyled> {
+class _TextFormStyledWidgetState extends State<TextFormStyledWidget> {
   bool _isPasswordVisible = false;
   @override
   void initState() {
-    // TODO: implement initState
     _isPasswordVisible = widget.isPassword;
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Row(
@@ -50,27 +50,27 @@ class _TextFormStyledState extends State<TextFormStyled> {
           decoration: BoxDecoration(
             //border: OutlineInputBorder(),
             border: Border.all(
-              color: Color(0xffADB5BD), // Color of the border
+              color: const Color(0xffADB5BD), // Color of the border
               width: 1, // Width of the border
             ),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
                 Radius.circular(40)), // Optional: Add rounded corners
 
             color: Colors.white,
           ),
           child: Container(
-            margin: EdgeInsets.only(top: 4),
+            margin: const EdgeInsets.only(top: 4),
             child: TextFormField(
               validator: ((value) => widget.validator(value)),
               controller: widget.controller,
               keyboardType: widget.keyboardType,
               onTap: () => widget.action,
-              obscureText: _isPasswordVisible ?? false,
+              obscureText: _isPasswordVisible,
               style: Theme.of(context).textTheme.bodyMedium,
               decoration: InputDecoration(
                   suffixIcon: widget.isPassword
                       ? IconButton(
-                          color: Color(0xffADB5BD),
+                          color: const Color(0xffADB5BD),
                           icon: Icon(
                             !_isPasswordVisible
                                 ? Icons.visibility
@@ -85,14 +85,15 @@ class _TextFormStyledState extends State<TextFormStyled> {
                       : null,
                   isDense: true,
                   enabledBorder: null,
-                  border: UnderlineInputBorder(borderSide: BorderSide.none),
+                  border:
+                      const UnderlineInputBorder(borderSide: BorderSide.none),
                   prefixIcon: Icon(
                     widget.icon,
-                    color: Color(0xffADB5BD),
+                    color: const Color(0xffADB5BD),
                   ),
                   fillColor: const Color.fromARGB(255, 0, 0, 0),
-                  hintText: widget.placeholder ?? ' ',
-                  hintStyle: TextStyle(color: Color(0xffADB5BD))),
+                  hintText: widget.placeholder,
+                  hintStyle: const TextStyle(color: Color(0xffADB5BD))),
             ),
           ),
         )

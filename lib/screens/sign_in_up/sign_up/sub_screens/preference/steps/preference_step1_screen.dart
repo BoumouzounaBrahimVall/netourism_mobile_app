@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '/data/preference_data.dart';
+import 'provider.dart';
+
+class PreferencesStep1Screen extends ConsumerStatefulWidget {
+  const PreferencesStep1Screen({Key? key}) : super(key: key);
+
+  @override
+  _PreferencesStep1ScreenState createState() => _PreferencesStep1ScreenState();
+}
+
+class _PreferencesStep1ScreenState
+    extends ConsumerState<PreferencesStep1Screen> {
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    List<String> selectedHobbies = ref.watch(selectedHobbiesProvider);
+    return Column(
+      children: [
+        Text(
+          'Veuillez selectionnez depuis la liste des endrois ci dessus ce qui vous interesse',
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .merge(const TextStyle(color: Color(0xff3E3E3E))),
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: height * 0.5,
+          child: ListView.builder(
+            itemCount: hobbies.length,
+            itemBuilder: (context, index) {
+              return CheckboxListTile(
+                checkColor: Colors.white,
+                activeColor: const Color(0xffEE9321),
+                checkboxShape: const CircleBorder(
+                    side: BorderSide(color: Color(0xffEE9321), width: 20)),
+                title: Text(
+                  hobbies[index],
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                value: selectedHobbies.contains(hobbies[index]) ? true : false,
+                onChanged: (value) {
+                  setState(() {
+                    if (value!) {
+                      ref
+                          .read(selectedHobbiesProvider.notifier)
+                          .state
+                          .add(hobbies[index]);
+                      print('addr');
+                    } else {
+                      ref
+                          .read(selectedHobbiesProvider.notifier)
+                          .state
+                          .remove(hobbies[index]);
+                      print('remove');
+                    }
+                  });
+                },
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}

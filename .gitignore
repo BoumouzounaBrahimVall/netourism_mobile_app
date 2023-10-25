@@ -1,5 +1,6 @@
 #secrets
 secrets.txt
+lib/constants/secret.dart
 # Miscellaneous
 *.class
 *.log

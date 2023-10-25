@@ -1,9 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import '../constants/secret.dart';
+import '../../../constants/secret.dart';
 
 final _mylocation = LatLng(33.7010647, -7.3621591);
 final _mylocation2 = LatLng(33.70342654258918, -7.36632285713708);

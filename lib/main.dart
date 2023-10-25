@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '/routes.dart';
-import '/theme.dart';
+import '/constants/routes.dart';
+import '/constants/theme.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Netourisme',
       theme: themeData,
       routes: routes,

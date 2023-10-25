@@ -1,21 +1,19 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import '../sign_in_up/sign_in/sign_in_screen.dart';
 
-import '../sign_in/sign_in_page.dart';
-
-class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacementNamed(SignInPage.routeName);
+      Navigator.of(context).pushReplacementNamed(SignInScreen.routeName);
     });
     return Container(
         decoration: const BoxDecoration(

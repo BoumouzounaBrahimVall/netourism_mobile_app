@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import '/components/button_primary_widget.dart';
-import '/pages/sign_in/text_form_styled.dart';
+import '../../../widgets/button_primary_widget.dart';
+import '../../../widgets/text_form_styled_widget.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
-  static const String routeName = 'sign_in';
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+  static const String routeName = 'sign_up';
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
@@ -30,43 +29,50 @@ class _SignInPageState extends State<SignInPage> {
                 'assets/images/netourism-logo.png',
                 scale: 1.5,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Text(
-                'Acceder a mon compte',
+                'Créer mon compte',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'Veuillez entrer votre login',
+                'Veuillez entrer votre Information',
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
-                    .merge(TextStyle(color: Color(0xff3E3E3E))),
+                    .merge(const TextStyle(color: Color(0xff3E3E3E))),
               ),
-              SizedBox(height: 16),
-              TextFormStyled(
+              const SizedBox(height: 16),
+              TextFormStyledWidget(
                   label: 'Email',
                   placeholder: 'Email',
                   icon: Icons.email,
                   validator: () => {}),
-              SizedBox(height: 16),
-              TextFormStyled(
+              const SizedBox(height: 16),
+              TextFormStyledWidget(
                   label: 'Mot de passe',
                   placeholder: 'Mot de passe',
                   icon: Icons.lock,
                   isPassword: true,
                   validator: () => {}),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
+              TextFormStyledWidget(
+                  label: 'Confirmation de mot de passe',
+                  placeholder: 'Confirmation de mot de passe',
+                  icon: Icons.lock,
+                  isPassword: true,
+                  validator: () => {}),
+              const SizedBox(height: 16),
               ButtonPrimaryWidget(title: 'Se connecter', onPressed: () => {}),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               RichText(
                 text: TextSpan(
-                  text: 'Vous n\'avez pas de compte ? ',
-                  children: [
+                  text: 'Vous avez un compte ? ',
+                  children: const [
                     TextSpan(
-                        text: 'S\'inscrire',
+                        text: 'Se connecter',
                         style: TextStyle(
                             color: Color(0xffEE9321),
                             decoration: TextDecoration.underline,
@@ -77,7 +83,7 @@ class _SignInPageState extends State<SignInPage> {
                       const TextStyle(color: Color(0xff979797), fontSize: 14)),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               /* Divider(
                 color: Color(0xffC7C7C7),
                 thickness: 0.5,

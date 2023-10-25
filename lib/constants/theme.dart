@@ -26,7 +26,7 @@ var themeData = ThemeData(
       fontSize: 18,
       fontWeight: FontWeight.w400,
     ),
-    headlineSmall: const TextStyle(
+    headlineSmall: TextStyle(
         color: Color.fromARGB(255, 0, 0, 0),
         fontSize: 22,
         fontWeight: FontWeight.bold),
