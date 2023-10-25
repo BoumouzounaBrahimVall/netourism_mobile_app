@@ -49,12 +49,14 @@ class _PreferencesStep1ScreenState
                           .read(selectedHobbiesProvider.notifier)
                           .state
                           .add(hobbies[index]);
+                      // ignore: avoid_print
                       print('addr');
                     } else {
                       ref
                           .read(selectedHobbiesProvider.notifier)
                           .state
                           .remove(hobbies[index]);
+                      // ignore: avoid_print
                       print('remove');
                     }
                   });
