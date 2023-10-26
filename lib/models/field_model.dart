@@ -8,7 +8,8 @@ class FieldModel {
       this.icon,
       this.onChanged,
       this.validator,
-      this.isPassword});
+      this.isPassword,
+      this.errorString});
   String? label;
   String? placeholder;
   TextEditingController? controller;

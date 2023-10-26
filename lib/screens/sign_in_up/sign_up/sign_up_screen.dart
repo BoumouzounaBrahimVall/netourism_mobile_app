@@ -22,6 +22,20 @@ String? notEmpty(String? value) {
 }
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
+  String? _errorText;
+
+  void validateField(FieldModel field, String value) {
+    if (value.isEmpty) {
+      setState(() {
+        field.errorString = 'Ce champ ne devrait pas être vide';
+      });
+    } else {
+      setState(() {
+        field.errorString = null; // Clear the error message
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -54,8 +68,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           controller: TextEditingController(
               text: ref.watch(signupFormModelProvider).lastName),
           icon: Icons.person,
-          validator: notEmpty,
           placeholder: 'Last Name ',
+          errorString: null,
           onChanged: (value) {
             print('changed');
             ref.read(signupFormModelProvider).lastName = value;
@@ -66,6 +80,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               text: ref.watch(signupFormModelProvider).mail),
           icon: Icons.mail,
           validator: notEmpty,
+          errorString: null,
           placeholder: 'Email ',
           onChanged: (value) {
             print('changed');
@@ -76,6 +91,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           controller: TextEditingController(
               text: ref.watch(signupFormModelProvider).password),
           icon: Icons.lock,
+          errorString: null,
           validator: notEmpty,
           placeholder: 'Mot de passe ',
           isPassword: true,
@@ -87,6 +103,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           controller: TextEditingController(
               text: ref.watch(signupFormModelProvider).confirmPassword),
           icon: Icons.lock,
+          errorString: null,
           validator: notEmpty,
           isPassword: true,
           placeholder: 'Confirmation de Mot de passe ',
@@ -145,11 +162,16 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               placeholder: field.placeholder ?? '',
                               controller: field.controller,
                               icon: field.icon ?? Icons.abc,
-                              validator: notEmpty,
+                              validator: (value) {
+                                validateField(field, value);
+                                return null;
+                              },
                               onChanged: (value) {
-                                print('sajcasc');
+                                validateField(field, value);
+                                // if (value == '') field.errorString = value;
                                 field.onChanged!(value);
                               },
+                              errorText: field.errorString,
                               isPassword: field.isPassword ?? false,
                             )
                           ],
