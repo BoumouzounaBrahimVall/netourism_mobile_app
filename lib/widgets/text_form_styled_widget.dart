@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextFormStyledWidget extends StatefulWidget {
-  const TextFormStyledWidget(
+  TextFormStyledWidget(
       {Key? key,
       required this.label,
       required this.placeholder,
@@ -12,7 +12,8 @@ class TextFormStyledWidget extends StatefulWidget {
       this.isPassword = false,
       required this.validator,
       this.decoration,
-      this.obscureText})
+      this.obscureText,
+      this.onChanged})
       : super(key: key);
   final String label;
   final String placeholder;
@@ -24,7 +25,8 @@ class TextFormStyledWidget extends StatefulWidget {
   final Function validator;
   final InputDecoration? decoration;
   final bool? obscureText;
-
+  final Function? onChanged;
+  String _errorText;
   @override
   TextFormStyledWidgetState createState() => TextFormStyledWidgetState();
 }
@@ -43,8 +45,19 @@ class TextFormStyledWidgetState extends State<TextFormStyledWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Column(
+          children: [
+            if (widget._errorText != null)
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  widget._errorText,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+          ],
+        ),
         Container(
-          height: 48,
           alignment: Alignment.center,
           width: width * 0.9,
           decoration: BoxDecoration(
@@ -67,6 +80,10 @@ class TextFormStyledWidgetState extends State<TextFormStyledWidget> {
               onTap: () => widget.action,
               obscureText: _isPasswordVisible,
               style: Theme.of(context).textTheme.bodyMedium,
+              onChanged: (value) {
+                //print('cdsc');
+                widget.onChanged!(value);
+              },
               decoration: InputDecoration(
                   suffixIcon: widget.isPassword
                       ? IconButton(
