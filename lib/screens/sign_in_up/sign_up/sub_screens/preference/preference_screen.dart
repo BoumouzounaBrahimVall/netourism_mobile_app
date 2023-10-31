@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../providers/provider.dart';
 import '../preference/steps/preference_step1_screen.dart';
 import '../preference/steps/preference_step2_screen.dart';
 import '../../../../../widgets/button_primary_widget.dart';
@@ -8,17 +10,18 @@ List<Widget> steps = [
   const PreferencesStep2Screen(),
 ];
 
-class PreferenceScreen extends StatefulWidget {
+class PreferenceScreen extends ConsumerStatefulWidget {
   const PreferenceScreen({Key? key}) : super(key: key);
 
   static const String routeName = 'preference';
   @override
-  State<PreferenceScreen> createState() => _PreferenceScreenState();
+  ConsumerState<PreferenceScreen> createState() => _PreferenceScreenState();
 }
 
-class _PreferenceScreenState extends State<PreferenceScreen> {
+class _PreferenceScreenState extends ConsumerState<PreferenceScreen> {
   PageController? _pageController;
   int _pageIndex = 0;
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -28,6 +31,13 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
   }
 
   List<String> selectedHobbies = [];
+  void signUp() {
+    setState(() {
+      isLoading = true;
+    });
+    print(ref.read(signUpFormModelProvider));
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -100,6 +110,7 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                               if (_pageIndex == 1)
                                 {
                                   // Navigator.of(context).pushNamed(routeName)
+                                  signUp()
                                 }
                               else
                                 {

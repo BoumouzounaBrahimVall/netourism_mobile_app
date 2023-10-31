@@ -16,7 +16,8 @@ class _PreferencesStep1ScreenState
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    List<String> selectedHobbies = ref.watch(selectedHobbiesProvider);
+    List<String> selectedHobbies =
+        ref.watch(signUpFormModelProvider).preferedHobbies ?? [];
     return Column(
       children: [
         Text(

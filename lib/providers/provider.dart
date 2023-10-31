@@ -8,8 +8,8 @@ import '../services/signin/http_signin_service.dart';
 import '../services/user/http_user_service.dart';
 import '../services/user/user_service.dart';
 
-final signupFormModelProvider = StateProvider<SignUpFormModel>((ref) {
-  return SignUpFormModel();
+final signUpFormModelProvider = StateProvider<SignUpForm>((ref) {
+  return SignUpForm();
 });
 final signInFormModelProvider =
     StateProvider<SignInFormModel>((ref) => SignInFormModel());

@@ -43,7 +43,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     final formKey = GlobalKey<FormState>();
     void signUp() {
       if (formKey.currentState!.validate()) {
-        print(ref.read(signupFormModelProvider));
+        print(ref.read(signUpFormModelProvider));
         // Navigator.of(context).pushNamed(PreferenceScreen.routeName);
         Navigator.of(context).push(
           SlideLeftRouteWidget(PreferenceScreen()),
@@ -60,59 +60,59 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       FieldModel(
           label: 'First Name',
           controller: TextEditingController(
-              text: ref.watch(signupFormModelProvider).firstName),
+              text: ref.watch(signUpFormModelProvider).firstName),
           icon: Icons.person,
           placeholder: 'First Name ',
           validator: notEmpty,
           onChanged: (value) {
             print('changed');
-            ref.read(signupFormModelProvider.notifier).state.firstName = value;
+            ref.read(signUpFormModelProvider.notifier).state.firstName = value;
           }),
       FieldModel(
           label: 'Last Name',
           controller: TextEditingController(
-              text: ref.watch(signupFormModelProvider).lastName),
+              text: ref.watch(signUpFormModelProvider).lastName),
           icon: Icons.person,
           placeholder: 'Last Name ',
           errorString: null,
           onChanged: (value) {
             print('changed');
-            ref.read(signupFormModelProvider).lastName = value;
+            ref.read(signUpFormModelProvider).lastName = value;
           }),
       FieldModel(
           label: 'Email',
           controller: TextEditingController(
-              text: ref.watch(signupFormModelProvider).mail),
+              text: ref.watch(signUpFormModelProvider).mail),
           icon: Icons.mail,
           validator: notEmpty,
           errorString: null,
           placeholder: 'Email ',
           onChanged: (value) {
-            ref.read(signupFormModelProvider).mail = value;
+            ref.read(signUpFormModelProvider).mail = value;
           }),
       FieldModel(
           label: 'Mot de passe',
           controller: TextEditingController(
-              text: ref.watch(signupFormModelProvider).password),
+              text: ref.watch(signUpFormModelProvider).password),
           icon: Icons.lock,
           errorString: null,
           validator: notEmpty,
           placeholder: 'Mot de passe ',
           isPassword: true,
           onChanged: (value) {
-            ref.read(signupFormModelProvider).password = value;
+            ref.read(signUpFormModelProvider).password = value;
           }),
       FieldModel(
           label: 'Confirmation de Mot de passe',
           controller: TextEditingController(
-              text: ref.watch(signupFormModelProvider).confirmPassword),
+              text: ref.watch(signUpFormModelProvider).confirmPassword),
           icon: Icons.lock,
           errorString: null,
           validator: notEmpty,
           isPassword: true,
           placeholder: 'Confirmation de Mot de passe ',
           onChanged: (value) {
-            ref.read(signupFormModelProvider).confirmPassword = value;
+            ref.read(signUpFormModelProvider).confirmPassword = value;
           }),
     ];
 
