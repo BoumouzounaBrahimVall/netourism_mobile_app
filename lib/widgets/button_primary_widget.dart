@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ButtonPrimaryWidget extends StatelessWidget {
-  const ButtonPrimaryWidget(
-      {Key? key, required this.title, required this.onPressed})
+  ButtonPrimaryWidget({Key? key, required this.title, required this.onPressed})
       : super(key: key);
   final String title;
   final Function onPressed;
@@ -23,7 +22,7 @@ class ButtonPrimaryWidget extends StatelessWidget {
           backgroundColor: const MaterialStatePropertyAll(Color(0xffEE9321)),
           foregroundColor: const MaterialStatePropertyAll(Colors.black),
         ),
-        onPressed: () => onPressed,
+        onPressed: () => onPressed(),
         child: Text(
           title,
           style: Theme.of(context).textTheme.headlineSmall!.merge(
