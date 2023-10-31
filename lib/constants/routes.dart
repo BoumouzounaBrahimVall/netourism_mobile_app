@@ -6,7 +6,7 @@ import '/screens/sign_in_up/sign_up/sub_screens/preference/preference_screen.dar
 import '/screens/onbroading/splash_screen.dart';
 
 Map<String, WidgetBuilder> routes = {
-  "/": (context) => HomeScreenNavigationWidget(),
+  "/": (context) => const SplashScreen(), //HomeScreenNavigationWidget
   SignInScreen.routeName: (context) => const SignInScreen(),
   SignUpScreen.routeName: (context) => const SignUpScreen(),
   PreferenceScreen.routeName: (context) => const PreferenceScreen(),

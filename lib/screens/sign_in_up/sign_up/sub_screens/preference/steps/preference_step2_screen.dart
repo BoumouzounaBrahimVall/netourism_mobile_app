@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../../providers/provider.dart';
 import '/data/preference_data.dart';
-import 'provider.dart';
 
 class PreferencesStep2Screen extends ConsumerStatefulWidget {
   const PreferencesStep2Screen({Key? key}) : super(key: key);
@@ -17,7 +17,9 @@ class _PreferencesStep2ScreenState
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    List<String> selectedPreferences = ref.watch(selectedPreferencesProvider);
+    List<String> selectedPreferences =
+        ref.watch(signUpFormModelProvider).preferedPlaces ?? [];
+
     return Column(
       children: [
         Text(
