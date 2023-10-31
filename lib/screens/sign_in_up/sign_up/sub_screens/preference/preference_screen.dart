@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../providers/provider.dart';
 import '../preference/steps/preference_step1_screen.dart';
 import '../preference/steps/preference_step2_screen.dart';
 import '../../../../../widgets/button_primary_widget.dart';
@@ -8,24 +10,34 @@ List<Widget> steps = [
   const PreferencesStep2Screen(),
 ];
 
-class PreferenceScreen extends StatefulWidget {
+class PreferenceScreen extends ConsumerStatefulWidget {
   const PreferenceScreen({Key? key}) : super(key: key);
 
   static const String routeName = 'preference';
   @override
-  State<PreferenceScreen> createState() => _PreferenceScreenState();
+  ConsumerState<PreferenceScreen> createState() => _PreferenceScreenState();
 }
 
-class _PreferenceScreenState extends State<PreferenceScreen> {
+class _PreferenceScreenState extends ConsumerState<PreferenceScreen> {
   PageController? _pageController;
+  int _pageIndex = 0;
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
     // Initialize page controller
     _pageController = PageController(initialPage: 0);
+    _pageIndex = 0;
   }
 
   List<String> selectedHobbies = [];
+  void signUp() {
+    setState(() {
+      isLoading = true;
+    });
+    print(ref.read(signUpFormModelProvider));
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -56,12 +68,13 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 16),
-              Expanded(
+              Container(
+                height: 450,
                 child: PageView.builder(
                   onPageChanged: (index) {
-                    //  setState(() {
-                    //    _pageIndex = index;
-                    //  });
+                    setState(() {
+                      _pageIndex = index;
+                    });
                   },
                   itemCount: steps.length,
                   controller: _pageController,
@@ -92,7 +105,27 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                   SizedBox(
                     width: width * 0.4,
                     child: ButtonPrimaryWidget(
-                        title: 'Continuer', onPressed: () => {}),
+                        title: 'Continuer',
+                        onPressed: () => {
+                              if (_pageIndex == 1)
+                                {
+                                  // Navigator.of(context).pushNamed(routeName)
+                                  signUp()
+                                }
+                              else
+                                {
+                                  _pageIndex++,
+                                  _pageController!.animateToPage(_pageIndex,
+                                      curve: Curves.easeIn,
+                                      duration: const Duration(
+                                          days: 0,
+                                          hours: 0,
+                                          microseconds: 500,
+                                          seconds: 0,
+                                          minutes: 0,
+                                          milliseconds: 0))
+                                }
+                            }),
                   ),
                 ],
               ),
