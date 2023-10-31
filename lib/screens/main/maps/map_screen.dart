@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:netourism_mobile_app/data/users_stories_data.dart';
+import 'package:netourism_mobile_app/screens/main/stories/stories_screen.dart';
+import 'package:netourism_mobile_app/screens/main/stories/widgets/stories_navigation_widget.dart';
+import 'package:netourism_mobile_app/widgets/screen_transitions_widget.dart';
 import '../../../constants/secret.dart';
 
 final _mylocation = LatLng(33.7010647, -7.3621591);
@@ -13,17 +17,32 @@ class MapScreen extends StatefulWidget {
   State<MapScreen> createState() => _MapScreenState();
 }
 
+Future<void> getImages(LatLng location, BuildContext context) async {
+  //StoriesScreen
+  Navigator.of(context).push(
+    SlideLeftRouteWidget(
+      const GroupStories(
+          initialPage: 1, usersIds: ["0", "1", "2", "3", "4", "5"]),
+    ),
+  );
+}
+
 class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("map test"),
-      ),
       body: Stack(children: [
         FlutterMap(
           options: MapOptions(
-              minZoom: 5, maxZoom: 16, zoom: 13, center: _mylocation),
+            minZoom: 5,
+            maxZoom: 16,
+            zoom: 13,
+            center: _mylocation,
+            onTap: (tapPosition, point) async {
+              debugPrint("lat: ${point.latitude}, long: ${point.longitude}");
+              await getImages(point, context);
+            },
+          ),
           nonRotatedChildren: [
             TileLayer(
               urlTemplate:
@@ -51,13 +70,9 @@ class _MapScreenState extends State<MapScreen> {
                 Marker(
                   point: _mylocation2,
                   builder: (context) {
-                    return Container(
-                      height: 100,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: ExactAssetImage(
-                        "assets/images/marker.png",
-                      ))),
+                    return Image.asset(
+                      "assets/images/marker.png",
+                      height: 50,
                     );
                   },
                 )

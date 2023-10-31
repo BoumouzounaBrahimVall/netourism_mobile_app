@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Netourism require camera to work properly.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Netourism require microphone to work properly.</string>
 </dict>
 </plist>
