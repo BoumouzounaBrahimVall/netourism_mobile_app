@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:netourism_mobile_app/models/sign_un_form_model.dart';
+import 'package:netourism_mobile_app/models/sign_up_form_model.dart';
 import '../../../models/field_model.dart';
 import '../../../providers/provider.dart';
 import '../../../widgets/button_primary_widget.dart';
+import '../../../widgets/screen_transitions_widget.dart';
 import '../../../widgets/text_form_styled_widget.dart';
+import 'sub_screens/preference/preference_screen.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -41,18 +43,21 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     final formKey = GlobalKey<FormState>();
     void signUp() {
       if (formKey.currentState!.validate()) {
-        print('valid');
+        print(ref.read(signupFormModelProvider));
+        // Navigator.of(context).pushNamed(PreferenceScreen.routeName);
+        Navigator.of(context).push(
+          SlideLeftRouteWidget(PreferenceScreen()),
+        );
       } else {
         print('not valid');
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Veillez rempli tous les champs ')));
       }
       print('clicked');
-      print(ref.read(signupFormModelProvider));
     }
 
-    final firstNameController = TextEditingController(
-        text: ref.watch(signupFormModelProvider).firstName);
-    List<FieldModel> formFields = [
-      /* FieldModel(
+    List<FieldModel> formFieldsSignUp = [
+      FieldModel(
           label: 'First Name',
           controller: TextEditingController(
               text: ref.watch(signupFormModelProvider).firstName),
@@ -62,7 +67,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           onChanged: (value) {
             print('changed');
             ref.read(signupFormModelProvider.notifier).state.firstName = value;
-          }),*/
+          }),
       FieldModel(
           label: 'Last Name',
           controller: TextEditingController(
@@ -83,7 +88,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           errorString: null,
           placeholder: 'Email ',
           onChanged: (value) {
-            print('changed');
             ref.read(signupFormModelProvider).mail = value;
           }),
       FieldModel(
@@ -151,7 +155,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   key: formKey,
                   child: Column(
                     children: [
-                      ...formFields.map((field) {
+                      ...formFieldsSignUp.map((field) {
                         return Column(
                           children: [
                             SizedBox(
@@ -164,10 +168,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               icon: field.icon ?? Icons.abc,
                               validator: (value) {
                                 validateField(field, value);
-                                return null;
+                                if (value == '')
+                                  return 'veuillez remplir';
+                                else
+                                  return null;
                               },
                               onChanged: (value) {
-                                validateField(field, value);
+                                //  validateField(field, value);
                                 // if (value == '') field.errorString = value;
                                 field.onChanged!(value);
                               },
@@ -180,66 +187,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ],
                   )),
               const SizedBox(height: 16),
-              /* TextFormStyledWidget(
-                label: 'First Name',
-                placeholder: 'First Name',
-                controller: firstNameController,
-                icon: Icons.person,
-                validator: notEmpty,
-                onChanged: (value) {
-                  print('cscs');
-
-                  ref.read(signupFormModelProvider).firstName = value;
-                },
-              )*/
-              /*
-              ,
-              const SizedBox(height: 16),
-              TextFormStyledWidget(
-                label: 'Last Name',
-                placeholder: 'Last Name',
-                controller: lastNameController,
-                icon: Icons.person,
-                validator: notEmpty,
-                onChanged: (value) {
-                  ref.read(signupFormModelProvider).lastName = value;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormStyledWidget(
-                label: 'Email',
-                placeholder: 'Email',
-                controller: mailController,
-                icon: Icons.email,
-                validator: notEmpty,
-                onChanged: (value) {
-                  ref.read(signupFormModelProvider).mail = value;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormStyledWidget(
-                label: 'Mot de passe',
-                placeholder: 'Mot de passe',
-                controller: passwordController,
-                icon: Icons.lock,
-                isPassword: true,
-                validator: notEmpty,
-                onChanged: (value) {
-                  ref.read(signupFormModelProvider).password = value;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormStyledWidget(
-                label: 'Confirmation de mot de passe',
-                placeholder: 'Confirmation de mot de passe',
-                icon: Icons.lock,
-                isPassword: true,
-                validator: notEmpty,
-                onChanged: (value) {
-                  ref.read(signupFormModelProvider).confirmPassword = value;
-                },
-              ),*/
-
               const SizedBox(height: 16),
               ButtonPrimaryWidget(title: 'Je m\'inscris', onPressed: signUp),
               const SizedBox(height: 24),
@@ -260,10 +207,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              /* Divider(
-                color: Color(0xffC7C7C7),
-                thickness: 0.5,
-              )*/
             ],
           )))),
     ));

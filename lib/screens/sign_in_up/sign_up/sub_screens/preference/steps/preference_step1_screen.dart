@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../../providers/provider.dart';
 import '/data/preference_data.dart';
-import 'provider.dart';
 
 class PreferencesStep1Screen extends ConsumerStatefulWidget {
   const PreferencesStep1Screen({Key? key}) : super(key: key);

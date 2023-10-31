@@ -18,11 +18,13 @@ class PreferenceScreen extends StatefulWidget {
 
 class _PreferenceScreenState extends State<PreferenceScreen> {
   PageController? _pageController;
+  int _pageIndex = 0;
   @override
   void initState() {
     super.initState();
     // Initialize page controller
     _pageController = PageController(initialPage: 0);
+    _pageIndex = 0;
   }
 
   List<String> selectedHobbies = [];
@@ -56,12 +58,13 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 16),
-              Expanded(
+              Container(
+                height: 450,
                 child: PageView.builder(
                   onPageChanged: (index) {
-                    //  setState(() {
-                    //    _pageIndex = index;
-                    //  });
+                    setState(() {
+                      _pageIndex = index;
+                    });
                   },
                   itemCount: steps.length,
                   controller: _pageController,
@@ -92,7 +95,26 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
                   SizedBox(
                     width: width * 0.4,
                     child: ButtonPrimaryWidget(
-                        title: 'Continuer', onPressed: () => {}),
+                        title: 'Continuer',
+                        onPressed: () => {
+                              if (_pageIndex == 1)
+                                {
+                                  // Navigator.of(context).pushNamed(routeName)
+                                }
+                              else
+                                {
+                                  _pageIndex++,
+                                  _pageController!.animateToPage(_pageIndex,
+                                      curve: Curves.easeIn,
+                                      duration: const Duration(
+                                          days: 0,
+                                          hours: 0,
+                                          microseconds: 500,
+                                          seconds: 0,
+                                          minutes: 0,
+                                          milliseconds: 0))
+                                }
+                            }),
                   ),
                 ],
               ),
