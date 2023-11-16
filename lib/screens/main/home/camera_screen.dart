@@ -72,7 +72,7 @@ class _CameraScreenState extends State<CameraScreen> {
     if (image != null) {
       Navigator.of(context).push(
         SlideTopRouteWidget(
-          CameraImageEditorScreen(image: image),
+          CameraImageEditorScreen(file: File(image.path)),
         ),
       );
     }
