@@ -65,7 +65,7 @@ class _TextFormSearchStyled extends State<TextFormSearchStyledWidget> {
                 controller: widget.controller,
                 keyboardType: widget.keyboardType,
                 onTap: () => widget.action,
-                obscureText: _isPasswordVisible ?? false,
+                obscureText: _isPasswordVisible,
                 style: Theme.of(context).textTheme.bodyMedium,
                 decoration: InputDecoration(
                     suffixIcon: widget.isPassword
@@ -93,7 +93,7 @@ class _TextFormSearchStyled extends State<TextFormSearchStyledWidget> {
                       color: Color(0xff112A59),
                     ),
                     fillColor: const Color.fromARGB(255, 0, 0, 0),
-                    hintText: widget.placeholder ?? ' ',
+                    hintText: widget.placeholder,
                     hintStyle:
                         TextStyle(color: Color(0xff879EA4), fontSize: 18)),
               ),
