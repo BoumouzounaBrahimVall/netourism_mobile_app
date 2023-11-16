@@ -8,10 +8,24 @@ import 'package:netourism_mobile_app/screens/main/stories/widgets/stories_naviga
 import 'package:netourism_mobile_app/widgets/choice_picker_list_widget.dart';
 import 'package:netourism_mobile_app/widgets/screen_transitions_widget.dart';
 import '../../../constants/secret.dart';
+import '../../../models/map_marker_model.dart';
 import '../../../widgets/text_form_search_field_widget.dart';
+import 'package:flutter/rendering.dart';
 
 final _mylocation = LatLng(33.7010647, -7.3621591);
 final _mylocation2 = LatLng(33.70342654258918, -7.36632285713708);
+
+final List<MapMarkerModel> markers = [
+  MapMarkerModel(
+    point: _mylocation,
+    name: 'Marker 1',
+  ),
+  MapMarkerModel(
+    point: _mylocation2,
+    name: 'Marker 2',
+  ),
+  // Add more markers as needed
+];
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -61,6 +75,8 @@ class _MapScreenState extends State<MapScreen> {
                 markers: [
                   Marker(
                     point: _mylocation,
+                    width: 50,
+                    height: 50,
                     builder: (context) {
                       return Container(
                         height: 50,
@@ -73,13 +89,17 @@ class _MapScreenState extends State<MapScreen> {
                     },
                   ),
                   Marker(
-                    height: 150,
+                    width: 100,
+                    height: 100,
                     point: _mylocation2,
                     builder: (context) {
-                      return Image.asset(
-                        "assets/images/marker.png",
-                        height: 150,
-                        fit: BoxFit.contain,
+                      return Container(
+                        height: 100,
+                        child: Image.asset(
+                          "assets/images/marker.png",
+                          height: 150,
+                          fit: BoxFit.contain,
+                        ),
                       );
                     },
                   )
@@ -122,7 +142,7 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ))
         ],
-      ),
+      ), 
     );
   }
 }
