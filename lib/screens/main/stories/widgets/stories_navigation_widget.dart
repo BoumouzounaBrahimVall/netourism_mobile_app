@@ -6,10 +6,9 @@ import '../stories_screen.dart';
 import '../../../../../../../../data/users_stories_data.dart';
 
 class GroupStories extends StatefulWidget {
-  final int initialPage;
-  final List<String> usersIds;
-  const GroupStories(
-      {super.key, required this.usersIds, required this.initialPage});
+  // final List<String> usersIds;
+  final UserStories userStories;
+  const GroupStories({super.key, required this.userStories});
   @override
   State<GroupStories> createState() => _GroupStoriesState();
 }
@@ -48,12 +47,12 @@ class _GroupStoriesState extends State<GroupStories>
               return PageView.builder(
                   controller: _pageController,
                   physics: const ClampingScrollPhysics(),
-                  itemCount: widget.usersIds.length,
+                  itemCount: 1,
                   itemBuilder: (context, index) {
-                    UserStories userStories =
-                        getUserStoriesById(widget.usersIds[index]);
+                    //    UserStories userStories =
+                    //    getUserStoriesById(widget.usersIds[index]);
                     final StoriesScreen story =
-                        StoriesScreen(userStories: userStories);
+                        StoriesScreen(userStories: widget.userStories);
                     // Calculate the rotation angle based on the current page index and scrolling direction
                     final isLeaving = (index - value) <= 0;
                     final t = (index - value);

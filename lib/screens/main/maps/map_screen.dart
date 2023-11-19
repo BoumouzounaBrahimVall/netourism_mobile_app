@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:netourism_mobile_app/constants/constants.dart';
+import 'package:netourism_mobile_app/constants/images_upload.dart';
 import 'package:netourism_mobile_app/data/users_stories_data.dart';
 import 'package:netourism_mobile_app/screens/main/stories/stories_screen.dart';
 import 'package:netourism_mobile_app/screens/main/stories/widgets/stories_navigation_widget.dart';
+import 'package:netourism_mobile_app/story_model.dart';
+import 'package:netourism_mobile_app/user_stories_model.dart';
 import 'package:netourism_mobile_app/widgets/choice_picker_list_widget.dart';
 import 'package:netourism_mobile_app/widgets/screen_transitions_widget.dart';
 import '../../../constants/secret.dart';
@@ -36,10 +39,27 @@ class MapScreen extends StatefulWidget {
 
 Future<void> getImages(LatLng location, BuildContext context) async {
   //StoriesScreen
+  List<String> imagePaths =
+      await fetchImages(LatLng(37.421998333333335, -122.084));
+  print(imagePaths);
+  List<Story> stories = imagePaths
+      .map((e) => Story(
+          url: e,
+          media: MediaType.image,
+          duration: const Duration(seconds: 10),
+          publishedAt: DateTime.parse("2023-11-11T09:00:00")))
+      .toList();
+
+  UserStories userStories = UserStories(
+      stories: stories,
+      userId: 'userId',
+      userName: 'userName',
+      userImgUrl: 'https://randomuser.me/api/portraits/men/35.jpg');
+
   Navigator.of(context).push(
     SlideLeftRouteWidget(
-      const GroupStories(
-          initialPage: 1, usersIds: ["0", "1", "2", "3", "4", "5"]),
+      //StoriesScreen(userStories: userStories)
+      GroupStories(userStories: userStories),
     ),
   );
 }
@@ -59,6 +79,7 @@ class _MapScreenState extends State<MapScreen> {
               center: _mylocation,
               onTap: (tapPosition, point) async {
                 debugPrint("lat: ${point.latitude}, long: ${point.longitude}");
+
                 await getImages(point, context);
               },
             ),
@@ -142,7 +163,7 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ))
         ],
-      ), 
+      ),
     );
   }
 }

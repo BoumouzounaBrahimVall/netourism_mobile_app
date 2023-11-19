@@ -73,12 +73,11 @@ class _CameraImageEditorScreenState extends State<CameraImageEditorScreen> {
               IconButton(
                   onPressed: () async {
                     debugPrint('------------------------------------');
-
-                    http.StreamedResponse response =
-                        await updateProfile(widget.file);
-                    debugPrint('${response.statusCode}');
-
-                    debugPrint('------------------------------------');
+                    await updateProfile(widget.file).then((value) {
+                      debugPrint('$value');
+                      Navigator.of(context).pop();
+                      return value;
+                    });
                   },
                   icon: const FeatherIcon(
                     FeatherIcons.send,

@@ -34,3 +34,5 @@ class NetourismLocation {
     return position;
   }
 }
+
+late LatLng curentLocation;

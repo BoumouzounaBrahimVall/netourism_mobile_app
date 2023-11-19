@@ -154,7 +154,10 @@ class _StoriesScreenState extends State<StoriesScreen>
                 final Story story = stories[i];
                 switch (story.media) {
                   case MediaType.image:
-                    return CachedNetworkImage(
+                    return
+                        //     Image.network(story.url , fit: BoxFit.cover,)
+
+                        CachedNetworkImage(
                       imageUrl: story.url,
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
@@ -165,7 +168,7 @@ class _StoriesScreenState extends State<StoriesScreen>
                       ),
                       // TODO: Change picture
                       errorWidget: (context, url, error) => Image.asset(
-                        "AppConstants.logoTitle",
+                        "assets/images/marker.png",
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,
