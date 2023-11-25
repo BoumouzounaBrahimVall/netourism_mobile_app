@@ -39,8 +39,7 @@ class MapScreen extends StatefulWidget {
 
 Future<void> getImages(LatLng location, BuildContext context) async {
   //StoriesScreen
-  List<String> imagePaths =
-      await fetchImages(LatLng(37.421998333333335, -122.084));
+  List<String> imagePaths = await fetchImages(LatLng(33.7011138, -7.3621081));
   print(imagePaths);
   List<Story> stories = imagePaths
       .map((e) => Story(

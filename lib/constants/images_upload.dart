@@ -31,7 +31,7 @@ Future<http.StreamedResponse> updateProfile(File? data) async {
 
 Future<List<String>> fetchImages(LatLng location) async {
   final url =
-      '$getImegesByLocationUri/${location.latitude}/${location.longitude}';
+      '$getImegesByLocationUri/${location.latitude}/${location.longitude}/2000';
 
   try {
     final response = await http.get(Uri.parse(url));
