@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:feather_icons_svg/feather_icons_svg.dart';
 import 'package:flutter/material.dart';
-import 'package:netourism_mobile_app/constants/images_upload.dart';
-import 'package:http/http.dart' as http;
+import '../../../services/events/images_upload.dart';
 
 class CameraImageEditorScreen extends StatefulWidget {
   const CameraImageEditorScreen({super.key, required this.file});

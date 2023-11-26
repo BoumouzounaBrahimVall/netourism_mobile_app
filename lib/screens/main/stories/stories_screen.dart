@@ -166,7 +166,6 @@ class _StoriesScreenState extends State<StoriesScreen>
                         height: double.infinity,
                         width: double.infinity,
                       ),
-                      // TODO: Change picture
                       errorWidget: (context, url, error) => Image.asset(
                         "assets/images/marker.png",
                         width: 100,
@@ -210,8 +209,8 @@ class _StoriesScreenState extends State<StoriesScreen>
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromARGB(255, 5, 24, 40),
-                        Color.fromARGB(255, 5, 24, 40).withOpacity(0.6),
+                        const Color.fromARGB(255, 5, 24, 40),
+                        const Color.fromARGB(255, 5, 24, 40).withOpacity(0.6),
                         Colors.transparent,
                       ],
                     ),
@@ -283,8 +282,8 @@ class _StoriesScreenState extends State<StoriesScreen>
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                         colors: [
-                          Color.fromARGB(255, 5, 24, 40),
-                          Color.fromARGB(255, 5, 24, 40).withOpacity(0.6),
+                          const Color.fromARGB(255, 5, 24, 40),
+                          const Color.fromARGB(255, 5, 24, 40).withOpacity(0.6),
                           Colors.transparent,
                         ],
                       ),
@@ -377,7 +376,7 @@ class _StoriesScreenState extends State<StoriesScreen>
                   scrollPadding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
                   maxLines: 5,
                   minLines: 1,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   controller: textEditingController,
                   onChanged: (text) {
                     setState(() {
@@ -390,29 +389,6 @@ class _StoriesScreenState extends State<StoriesScreen>
                       hintStyle: TextStyle(color: Colors.white)),
                 ),
               ),
-              if (isComposingMessage)
-                IconButton(
-                  padding: const EdgeInsets.all(10),
-                  alignment: AlignmentDirectional.center,
-                  constraints: const BoxConstraints(),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: const FeatherIcon(
-                    FeatherIcons.send,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    // Code to send the message
-                    String message = textEditingController.text;
-                    // widget.onSendclick(message);
-                    // Reset the text field
-                    textEditingController.clear();
-                    setState(() {
-                      isComposingMessage = false;
-                    });
-                    // Add your logic to handle the sent message here
-                  },
-                ),
               const SizedBox(
                 width: 5,
               ),

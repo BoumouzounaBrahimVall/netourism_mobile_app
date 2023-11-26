@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:netourism_mobile_app/constants/constants.dart';
-import 'package:netourism_mobile_app/constants/images_upload.dart';
-import 'package:netourism_mobile_app/data/users_stories_data.dart';
-import 'package:netourism_mobile_app/screens/main/stories/stories_screen.dart';
-import 'package:netourism_mobile_app/screens/main/stories/widgets/stories_navigation_widget.dart';
-import 'package:netourism_mobile_app/story_model.dart';
-import 'package:netourism_mobile_app/user_stories_model.dart';
-import 'package:netourism_mobile_app/widgets/choice_picker_list_widget.dart';
-import 'package:netourism_mobile_app/widgets/screen_transitions_widget.dart';
+import '/constants/constants.dart';
+import '/services/events/images_upload.dart';
+import '/screens/main/stories/widgets/stories_navigation_widget.dart';
+import '/story_model.dart';
+import '/user_stories_model.dart';
+import '/widgets/choice_picker_list_widget.dart';
+import '/widgets/screen_transitions_widget.dart';
 import '../../../constants/secret.dart';
 import '../../../models/map_marker_model.dart';
 import '../../../widgets/text_form_search_field_widget.dart';
-import 'package:flutter/rendering.dart';
 
 final _mylocation = LatLng(33.7010647, -7.3621591);
 final _mylocation2 = LatLng(33.70342654258918, -7.36632285713708);
@@ -113,7 +110,7 @@ class _MapScreenState extends State<MapScreen> {
                     height: 100,
                     point: _mylocation2,
                     builder: (context) {
-                      return Container(
+                      return SizedBox(
                         height: 100,
                         child: Image.asset(
                           "assets/images/marker.png",
@@ -130,7 +127,7 @@ class _MapScreenState extends State<MapScreen> {
           Positioned(
               top: 0,
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 height: 200,
                 width: width,
                 decoration: BoxDecoration(
@@ -145,7 +142,7 @@ class _MapScreenState extends State<MapScreen> {
                     ])),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     TextFormSearchStyledWidget(
@@ -154,7 +151,7 @@ class _MapScreenState extends State<MapScreen> {
                       placeholder: 'Chercher',
                       validator: () => {},
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ChoicePickerList(list: contentTypeList, isWrraped: false)

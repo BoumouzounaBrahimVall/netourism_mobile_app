@@ -1,8 +1,8 @@
 import 'package:feather_icons_svg/feather_icons_svg.dart';
 import 'package:flutter/material.dart';
-import 'package:netourism_mobile_app/screens/main/home/camera_screen.dart';
-import 'package:netourism_mobile_app/screens/main/maps/map_screen.dart';
-import 'package:netourism_mobile_app/screens/main/profile/profile_screen.dart';
+import '/screens/main/home/camera_screen.dart';
+import '/screens/main/maps/map_screen.dart';
+import '/screens/main/profile/profile_screen.dart';
 
 class HomeScreenNavigationWidget extends StatefulWidget {
   const HomeScreenNavigationWidget({super.key});

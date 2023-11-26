@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:netourism_mobile_app/constants/cameras.dart';
-import 'package:netourism_mobile_app/screens/main/home/camera_image_editor_screen.dart';
-import 'package:netourism_mobile_app/widgets/screen_transitions_widget.dart';
+import '/constants/cameras.dart';
+import '/screens/main/home/camera_image_editor_screen.dart';
+import '/widgets/screen_transitions_widget.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
