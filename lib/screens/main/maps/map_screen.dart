@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:netourism_mobile_app/constants/current_location.dart';
 import '/constants/constants.dart';
 import '/services/events/images_upload.dart';
 import '/screens/main/stories/widgets/stories_navigation_widget.dart';
@@ -36,7 +37,8 @@ class MapScreen extends StatefulWidget {
 
 Future<void> getImages(LatLng location, BuildContext context) async {
   //StoriesScreen
-  List<String> imagePaths = await fetchImages(LatLng(33.7011138, -7.3621081));
+  List<String> imagePaths =
+      await fetchImages(location); //LatLng(33.7011138, -7.3621081)
   print(imagePaths);
   List<Story> stories = imagePaths
       .map((e) => Story(
@@ -61,18 +63,68 @@ Future<void> getImages(LatLng location, BuildContext context) async {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  final mapController = MapController();
+  late LatLng centerLocation;
+  double currentZoom = 11;
+  @override
+  void initState() {
+    super.initState();
+    centerLocation = _mylocation;
+  }
+
+  void zoomOut() {
+    currentZoom = currentZoom - 1;
+    mapController.move(centerLocation, currentZoom);
+  }
+
+  void zoomInt() {
+    currentZoom = currentZoom + 1;
+    mapController.move(centerLocation, currentZoom);
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.black,
+      floatingActionButton: Container(
+        width: 70,
+        margin: const EdgeInsets.only(bottom: 100),
+        decoration: BoxDecoration(
+            color: AppColor.primaryColor,
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GestureDetector(
+                onTap: zoomInt,
+                child: const Text(
+                  "+",
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                )),
+            const Text(
+              "|",
+              style: TextStyle(color: Colors.white),
+            ),
+            GestureDetector(
+                onTap: zoomOut,
+                child: const Text(
+                  "-",
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                ))
+          ],
+        ),
+      ),
       body: Stack(
         children: [
           FlutterMap(
+            mapController: mapController,
             options: MapOptions(
               minZoom: 5,
               maxZoom: 16,
-              zoom: 13,
-              center: _mylocation,
+              zoom: 11,
+              center: centerLocation,
               onTap: (tapPosition, point) async {
                 debugPrint("lat: ${point.latitude}, long: ${point.longitude}");
 
@@ -89,7 +141,25 @@ class _MapScreenState extends State<MapScreen> {
                 },
               ),
               MarkerLayer(
-                markers: [
+                markers: eventLocations
+                    .map(
+                      (e) => Marker(
+                        point: e,
+                        width: 10,
+                        height: 10,
+                        builder: (context) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 32, 156, 145),
+                              shape: BoxShape.circle,
+                              // border: Border.all(color: Colors.white, width: 3)
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                    .toList()
+                /*
                   Marker(
                     point: _mylocation,
                     width: 50,
@@ -120,7 +190,8 @@ class _MapScreenState extends State<MapScreen> {
                       );
                     },
                   )
-                ],
+                */
+                ,
               )
             ],
           ),
@@ -154,7 +225,14 @@ class _MapScreenState extends State<MapScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    ChoicePickerList(list: contentTypeList, isWrraped: false)
+                    ChoicePickerList(
+                      list: contentTypeList,
+                      isWrraped: false,
+                      action: (a) {
+                        centerLocation = a.location!;
+                        mapController.move(a.location!, 11);
+                      },
+                    )
                   ],
                 ),
               ))

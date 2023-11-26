@@ -31,7 +31,7 @@ Future<http.StreamedResponse> updateProfile(File? data) async {
 
 Future<List<String>> fetchImages(LatLng location) async {
   final url =
-      '$getImegesByLocationUri/${location.latitude}/${location.longitude}/2000';
+      '$getImegesByLocationUri/${location.latitude}/${location.longitude}/300';
 
   try {
     final response = await http.get(Uri.parse(url));
@@ -47,6 +47,36 @@ Future<List<String>> fetchImages(LatLng location) async {
           imagePaths.map((item) => item.toString()).toList();
 
       return imageList;
+    } else {
+      // If the server returns an error response, throw an exception
+      throw Exception('Failed to load images');
+    }
+  } catch (e) {
+    // Handle any exceptions that occurred during the request
+    throw Exception('Error: $e');
+  }
+}
+
+Future<List<LatLng>> fetchLocations() async {
+  const url = getLocationsUri;
+
+  try {
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      // If the request is successful, parse the response body
+      final List<dynamic> responseData = json.decode(response.body);
+
+      // Extract the "imagePaths" list from the response
+      //final List<dynamic> imagePaths = responseData['message']['imagePaths'];
+      List<LatLng> locations = responseData.map((locationData) {
+        final coordinates = locationData['point']['coordinates'];
+        final double latitude = coordinates[1]; // Latitude
+        final double longitude = coordinates[0]; // Longitude
+        return LatLng(latitude, longitude);
+      }).toList();
+
+      return locations;
     } else {
       // If the server returns an error response, throw an exception
       throw Exception('Failed to load images');
