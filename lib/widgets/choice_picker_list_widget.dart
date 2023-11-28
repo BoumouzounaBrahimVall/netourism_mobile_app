@@ -13,7 +13,7 @@ class ChoicePickerList extends StatefulWidget {
   bool isWrraped;
 
   @override
-  _ChoicePickerListState createState() => _ChoicePickerListState();
+  State<ChoicePickerList> createState() => _ChoicePickerListState();
 }
 
 class _ChoicePickerListState extends State<ChoicePickerList> {

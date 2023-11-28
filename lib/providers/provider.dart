@@ -16,7 +16,7 @@ final signInFormModelProvider =
 
 final selectedHobbiesProvider = StateProvider<List<String>>((ref) => []);
 final selectedPreferencesProvider = StateProvider<List<String>>((ref) => []);
-bool isFake = true;
+bool isFake = false;
 final signinServiceProvider = Provider<SignInService>((ref) {
   return isFake
       ? FakeSignInService()

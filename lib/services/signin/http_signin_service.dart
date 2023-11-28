@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:netourism_mobile_app/constants/failure_success.dart';
+import 'package:netourism_mobile_app/constants/secret.dart';
 import 'package:netourism_mobile_app/services/signin/signin_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +17,7 @@ class HttpSignInService implements SignInService {
     final dio = Dio();
     try {
       final response = await dio.post(
-        '$baseUrl/api/user/login',
+        '$authUri/login',
         data: {
           'email': mail,
           'password': password,
@@ -25,8 +26,8 @@ class HttpSignInService implements SignInService {
       Map<String, dynamic> jsonResponse = response.data;
 
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(CacheVariableNames.token, jsonResponse['token']);
-
+      // await prefs.setString(CacheVariableNames.token, jsonResponse['token']);
+      print(response);
       //final User user = await userService.getUserFromAPI();
 
       await prefs.setBool(CacheVariableNames.isConnected, true);

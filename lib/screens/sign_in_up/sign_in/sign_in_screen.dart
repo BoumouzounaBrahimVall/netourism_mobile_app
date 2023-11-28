@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netourism_mobile_app/models/field_model.dart';
+import 'package:netourism_mobile_app/screens/main/home/home_screen_navigation_widget.dart';
 import '../../../providers/provider.dart';
 import '../sign_up/sign_up_screen.dart';
 import '/widgets/screen_transitions_widget.dart';
@@ -61,6 +62,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
             //   ref.read(userUpdateTrigger.notifier).state++;
             /* Navigator.of(context)
                 .pushNamedAndRemoveUntil(HomePage.routeName, (route) => false);*/
+            Navigator.of(context).push(
+              SlideLeftRouteWidget(const HomeScreenNavigationWidget()),
+            );
           },
         );
       }

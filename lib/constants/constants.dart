@@ -11,9 +11,6 @@ class CacheVariableNames {
 const baseUrl = "";
 
 List<ChoiceModel> contentTypeList = [
-  /// ChoiceModel(name: "All", index: 0, isSelected: false),
-  // ChoiceModel(name: "Stories", index: 0, isSelected: false),
-  // ChoiceModel(name: "Store", index: 0, isSelected: false),
   ChoiceModel(
       name: "My location",
       index: 0,
@@ -72,7 +69,5 @@ List<ChoiceModel> contentTypeList = [
 ];
 
 class AppColor {
-  static Color primaryColor = Color(0xffEE9321);
+  static Color primaryColor = const Color(0xffEE9321);
 }
-
-List<LatLng> eventLocations = [];

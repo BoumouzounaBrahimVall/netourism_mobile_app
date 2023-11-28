@@ -35,41 +35,43 @@ class MapScreen extends StatefulWidget {
   State<MapScreen> createState() => _MapScreenState();
 }
 
-Future<void> getImages(LatLng location, BuildContext context) async {
-  //StoriesScreen
-  List<String> imagePaths =
-      await fetchImages(location); //LatLng(33.7011138, -7.3621081)
-  print(imagePaths);
-  List<Story> stories = imagePaths
-      .map((e) => Story(
-          url: e,
-          media: MediaType.image,
-          duration: const Duration(seconds: 10),
-          publishedAt: DateTime.parse("2023-11-11T09:00:00")))
-      .toList();
-
-  UserStories userStories = UserStories(
-      stories: stories,
-      userId: 'userId',
-      userName: 'userName',
-      userImgUrl: 'https://randomuser.me/api/portraits/men/35.jpg');
-
-  Navigator.of(context).push(
-    SlideLeftRouteWidget(
-      //StoriesScreen(userStories: userStories)
-      GroupStories(userStories: userStories),
-    ),
-  );
-}
-
 class _MapScreenState extends State<MapScreen> {
   final mapController = MapController();
   late LatLng centerLocation;
+  List<LatLng> eventLocations = [];
+
   double currentZoom = 11;
   @override
   void initState() {
     super.initState();
     centerLocation = _mylocation;
+  }
+
+  Future<void> getImages(LatLng location, BuildContext context) async {
+    //StoriesScreen
+    List<String> imagePaths =
+        await fetchImages(location); //LatLng(33.7011138, -7.3621081)
+    print(imagePaths);
+    List<Story> stories = imagePaths
+        .map((e) => Story(
+            url: e,
+            media: MediaType.image,
+            duration: const Duration(seconds: 10),
+            publishedAt: DateTime.parse("2023-11-11T09:00:00")))
+        .toList();
+
+    UserStories userStories = UserStories(
+        stories: stories,
+        userId: 'userId',
+        userName: 'userName',
+        userImgUrl: 'https://randomuser.me/api/portraits/men/35.jpg');
+
+    Navigator.of(context).push(
+      SlideLeftRouteWidget(
+        //StoriesScreen(userStories: userStories)
+        GroupStories(userStories: userStories),
+      ),
+    );
   }
 
   void zoomOut() {
@@ -80,6 +82,10 @@ class _MapScreenState extends State<MapScreen> {
   void zoomInt() {
     currentZoom = currentZoom + 1;
     mapController.move(centerLocation, currentZoom);
+  }
+
+  Future<void> getCurentEventsLocations() async {
+    eventLocations = await fetchLocations();
   }
 
   @override
@@ -116,50 +122,59 @@ class _MapScreenState extends State<MapScreen> {
           ],
         ),
       ),
-      body: Stack(
-        children: [
-          FlutterMap(
-            mapController: mapController,
-            options: MapOptions(
-              minZoom: 5,
-              maxZoom: 16,
-              zoom: 11,
-              center: centerLocation,
-              onTap: (tapPosition, point) async {
-                debugPrint("lat: ${point.latitude}, long: ${point.longitude}");
+      body: FutureBuilder(
+        future: getCurentEventsLocations(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: Text("loading..."),
+            );
+          } else {
+            return Stack(
+              children: [
+                FlutterMap(
+                  mapController: mapController,
+                  options: MapOptions(
+                    minZoom: 5,
+                    maxZoom: 16,
+                    zoom: 11,
+                    center: centerLocation,
+                    onTap: (tapPosition, point) async {
+                      debugPrint(
+                          "lat: ${point.latitude}, long: ${point.longitude}");
 
-                await getImages(point, context);
-              },
-            ),
-            nonRotatedChildren: [
-              TileLayer(
-                urlTemplate:
-                    "https://api.mapbox.com/styles/v1/brahimvall/{id}/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}",
-                additionalOptions: const {
-                  "accessToken": mapboxAccessToken,
-                  "id": mapboxStyle
-                },
-              ),
-              MarkerLayer(
-                markers: eventLocations
-                    .map(
-                      (e) => Marker(
-                        point: e,
-                        width: 10,
-                        height: 10,
-                        builder: (context) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 32, 156, 145),
-                              shape: BoxShape.circle,
-                              // border: Border.all(color: Colors.white, width: 3)
+                      await getImages(point, context);
+                    },
+                  ),
+                  nonRotatedChildren: [
+                    TileLayer(
+                      urlTemplate:
+                          "https://api.mapbox.com/styles/v1/brahimvall/{id}/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}",
+                      additionalOptions: const {
+                        "accessToken": mapboxAccessToken,
+                        "id": mapboxStyle
+                      },
+                    ),
+                    MarkerLayer(
+                      markers: eventLocations
+                          .map(
+                            (e) => Marker(
+                              point: e,
+                              width: 10,
+                              height: 10,
+                              builder: (context) {
+                                return Container(
+                                  decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 32, 156, 145),
+                                    shape: BoxShape.circle,
+                                    // border: Border.all(color: Colors.white, width: 3)
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-                    )
-                    .toList()
-                /*
+                          )
+                          .toList()
+                      /*
                   Marker(
                     point: _mylocation,
                     width: 50,
@@ -191,52 +206,55 @@ class _MapScreenState extends State<MapScreen> {
                     },
                   )
                 */
-                ,
-              )
-            ],
-          ),
-          Positioned(
-              top: 0,
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                height: 200,
-                width: width,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                      Colors.white,
-                      Colors.white.withOpacity(0.7),
-                      Colors.white.withOpacity(0.3),
-                      Colors.white.withOpacity(0.0)
-                    ])),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    TextFormSearchStyledWidget(
-                      icon: Icons.search,
-                      label: 'Chercher',
-                      placeholder: 'Chercher',
-                      validator: () => {},
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ChoicePickerList(
-                      list: contentTypeList,
-                      isWrraped: false,
-                      action: (a) {
-                        centerLocation = a.location!;
-                        mapController.move(a.location!, 11);
-                      },
+                      ,
                     )
                   ],
                 ),
-              ))
-        ],
+                Positioned(
+                    top: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      height: 200,
+                      width: width,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                            Colors.white,
+                            Colors.white.withOpacity(0.7),
+                            Colors.white.withOpacity(0.3),
+                            Colors.white.withOpacity(0.0)
+                          ])),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          TextFormSearchStyledWidget(
+                            icon: Icons.search,
+                            label: 'Chercher',
+                            placeholder: 'Chercher',
+                            validator: () => {},
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ChoicePickerList(
+                            list: contentTypeList,
+                            isWrraped: false,
+                            action: (a) {
+                              centerLocation = a.location!;
+                              mapController.move(a.location!, 11);
+                            },
+                          )
+                        ],
+                      ),
+                    ))
+              ],
+            );
+          }
+        },
       ),
     );
   }
