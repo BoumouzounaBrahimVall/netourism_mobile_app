@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:netourism_mobile_app/models/sign_up_form_model.dart';
 import '../../../models/field_model.dart';
 import '../../../providers/provider.dart';
 import '../../../widgets/button_primary_widget.dart';
@@ -24,7 +23,7 @@ String? notEmpty(String? value) {
 }
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
-  String? _errorText;
+  //String? _errorText;
 
   void validateField(FieldModel field, String value) {
     if (value.isEmpty) {
@@ -46,12 +45,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         print(ref.read(signUpFormModelProvider));
         // Navigator.of(context).pushNamed(PreferenceScreen.routeName);
         Navigator.of(context).push(
-          SlideLeftRouteWidget(PreferenceScreen()),
+          SlideLeftRouteWidget(const PreferenceScreen()),
         );
       } else {
         print('not valid');
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Veillez rempli tous les champs ')));
+            const SnackBar(content: Text('Veillez rempli tous les champs ')));
       }
       print('clicked');
     }
@@ -129,7 +128,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Image.asset(
@@ -158,7 +157,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ...formFieldsSignUp.map((field) {
                         return Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             TextFormStyledWidget(
@@ -168,10 +167,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                               icon: field.icon ?? Icons.abc,
                               validator: (value) {
                                 validateField(field, value);
-                                if (value == '')
+                                if (value == '') {
                                   return 'veuillez remplir';
-                                else
+                                } else {
                                   return null;
+                                }
                               },
                               onChanged: (value) {
                                 //  validateField(field, value);

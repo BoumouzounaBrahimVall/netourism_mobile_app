@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:netourism_mobile_app/screens/main/home/home_screen_navigation_widget.dart';
+import 'package:netourism_mobile_app/widgets/screen_transitions_widget.dart';
+import 'package:netourism_mobile_app/widgets/show_dialog_widget.dart';
 import '../../../../../providers/provider.dart';
 import '../preference/steps/preference_step1_screen.dart';
 import '../preference/steps/preference_step2_screen.dart';
@@ -31,11 +34,37 @@ class _PreferenceScreenState extends ConsumerState<PreferenceScreen> {
   }
 
   List<String> selectedHobbies = [];
-  void signUp() {
+
+  Future<void> signUp() async {
+    //  if (formKey.currentState!.validate()) {
     setState(() {
       isLoading = true;
     });
     print(ref.read(signUpFormModelProvider));
+
+    final signupResult = await ref.read(signUpServiceProvider).register(
+          ref.read(signUpFormModelProvider).firstName!,
+          ref.read(signUpFormModelProvider).lastName!,
+          ref.read(signUpFormModelProvider).mail!,
+          ref.read(signUpFormModelProvider).password!,
+        );
+    setState(() {
+      isLoading = false;
+    });
+    signupResult.fold(
+      (l) {
+        showDialogWidget(context, 'Connexion échouée', l.message);
+        debugPrint(l.message);
+      },
+      (r) {
+        showDialogWidget(context, 'Connexion réussie', r.message);
+
+        Navigator.of(context).push(
+          SlideLeftRouteWidget(const HomeScreenNavigationWidget()),
+        );
+      },
+    );
+    // }
   }
 
   @override
@@ -106,11 +135,11 @@ class _PreferenceScreenState extends ConsumerState<PreferenceScreen> {
                     width: width * 0.4,
                     child: ButtonPrimaryWidget(
                         title: 'Continuer',
-                        onPressed: () => {
+                        onPressed: () async => {
                               if (_pageIndex == 1)
                                 {
                                   // Navigator.of(context).pushNamed(routeName)
-                                  signUp()
+                                  await signUp()
                                 }
                               else
                                 {

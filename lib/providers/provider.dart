@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netourism_mobile_app/models/sign_in_form_model.dart';
+import 'package:netourism_mobile_app/services/signup/http_signup_service.dart';
+import 'package:netourism_mobile_app/services/signup/signup_service.dart';
 
 import '../models/sign_up_form_model.dart';
 import '../services/signin/fake_signin_service.dart';
@@ -21,6 +23,10 @@ final signinServiceProvider = Provider<SignInService>((ref) {
   return isFake
       ? FakeSignInService()
       : HttpSignInService(ref.read(userServiceProvider));
+});
+
+final signUpServiceProvider = Provider<SignUpService>((ref) {
+  return HttpSignUpService();
 });
 
 final userServiceProvider = Provider<UserService>((ref) {

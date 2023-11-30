@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netourism_mobile_app/models/field_model.dart';
 import 'package:netourism_mobile_app/screens/main/home/home_screen_navigation_widget.dart';
+import 'package:netourism_mobile_app/widgets/show_dialog_widget.dart';
 import '../../../providers/provider.dart';
 import '../sign_up/sign_up_screen.dart';
 import '/widgets/screen_transitions_widget.dart';
@@ -52,11 +53,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         });
         signinResult.fold(
           (l) {
-            _showDialogWidget(context, 'Connexion échouée', l.message);
+            showDialogWidget(context, 'Connexion échouée', l.message);
             debugPrint(l.message);
           },
           (r) {
-            _showDialogWidget(context, 'Connexion réussie', r.message);
+            showDialogWidget(context, 'Connexion réussie', r.message);
             /*ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Connexion réussie')));*/
             //   ref.read(userUpdateTrigger.notifier).state++;
@@ -203,35 +204,4 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           )))),
     );
   }
-}
-
-Future<void> _showDialogWidget(
-    BuildContext context, String title, String content) {
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        content: Text(
-          content,
-          style: Theme.of(context).textTheme.bodyMedium!.merge(
-              TextStyle(color: Colors.black.withOpacity(0.5), fontSize: 16)),
-        ),
-        actions: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Ok'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ],
-      );
-    },
-  );
 }

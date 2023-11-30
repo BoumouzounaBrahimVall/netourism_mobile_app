@@ -2,23 +2,24 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:netourism_mobile_app/constants/failure_success.dart';
 import 'package:netourism_mobile_app/constants/secret.dart';
-import 'package:netourism_mobile_app/services/signin/signin_service.dart';
+import 'package:netourism_mobile_app/services/signup/signup_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/constants.dart';
-import '../../models/user_model.dart';
-import '../user/user_service.dart';
 
-class HttpSignInService implements SignInService {
-  HttpSignInService(this.userService);
-  final UserService userService;
+class HttpSignUpService implements SignUpService {
+  HttpSignUpService();
+
   @override
-  Future<Either<Failure, Success>> login(String mail, String password) async {
+  Future<Either<Failure, Success>> register(
+      String firstName, String lastName, String mail, String password) async {
     final dio = Dio();
     try {
       final response = await dio.post(
-        '$authUri/login',
+        '$authUri/register',
         data: {
+          'first_name': firstName,
+          'last_name': lastName,
           'email': mail,
           'password': password,
         },
@@ -31,10 +32,6 @@ class HttpSignInService implements SignInService {
       //final User user = await userService.getUserFromAPI();
 
       await prefs.setBool(CacheVariableNames.isConnected, true);
-
-      await prefs.setString(CacheVariableNames.fullName,
-          jsonResponse['data'][0] + " " + jsonResponse['data'][1]);
-      await prefs.setString(CacheVariableNames.email, mail);
 
       return Right(Success(jsonResponse['message']));
     } on DioError catch (e) {

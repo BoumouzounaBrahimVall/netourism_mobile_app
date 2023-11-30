@@ -13,6 +13,7 @@ class PreferencesStep1Screen extends ConsumerStatefulWidget {
 
 class _PreferencesStep1ScreenState
     extends ConsumerState<PreferencesStep1Screen> {
+  List<String> realSelectedHobbies = [];
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -29,7 +30,7 @@ class _PreferencesStep1ScreenState
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: height * 0.5,
+          height: height * 0.4,
           child: ListView.builder(
             itemCount: hobbies.length,
             itemBuilder: (context, index) {
@@ -42,7 +43,8 @@ class _PreferencesStep1ScreenState
                   hobbies[index],
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                value: selectedHobbies.contains(hobbies[index]) ? true : false,
+                value:
+                    realSelectedHobbies.contains(hobbies[index]) ? true : false,
                 onChanged: (value) {
                   setState(() {
                     if (value!) {
@@ -50,6 +52,10 @@ class _PreferencesStep1ScreenState
                           .read(selectedHobbiesProvider.notifier)
                           .state
                           .add(hobbies[index]);
+                      setState(() {
+                        realSelectedHobbies.add(hobbies[index]);
+                        print(realSelectedHobbies);
+                      });
                       // ignore: avoid_print
                       print('addr');
                     } else {
@@ -57,6 +63,9 @@ class _PreferencesStep1ScreenState
                           .read(selectedHobbiesProvider.notifier)
                           .state
                           .remove(hobbies[index]);
+                      setState(() {
+                        realSelectedHobbies.remove(hobbies[index]);
+                      });
                       // ignore: avoid_print
                       print('remove');
                     }

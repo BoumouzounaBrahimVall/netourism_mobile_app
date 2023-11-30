@@ -13,6 +13,8 @@ class PreferencesStep2Screen extends ConsumerStatefulWidget {
 
 class _PreferencesStep2ScreenState
     extends ConsumerState<PreferencesStep2Screen> {
+  List<String> realSelectedHobbies = [];
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -31,7 +33,7 @@ class _PreferencesStep2ScreenState
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: height * 0.5,
+          height: height * 0.4,
           child: ListView.builder(
             itemCount: preferences.length,
             itemBuilder: (context, index) {
@@ -44,7 +46,7 @@ class _PreferencesStep2ScreenState
                   preferences[index],
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                value: selectedPreferences.contains(preferences[index])
+                value: realSelectedHobbies.contains(preferences[index])
                     ? true
                     : false,
                 onChanged: (value) {
@@ -54,12 +56,19 @@ class _PreferencesStep2ScreenState
                           .read(selectedPreferencesProvider.notifier)
                           .state
                           .add(preferences[index]);
+                      setState(() {
+                        realSelectedHobbies.add(preferences[index]);
+                      });
                       print('addr');
                     } else {
                       ref
                           .read(selectedPreferencesProvider.notifier)
                           .state
                           .remove(preferences[index]);
+                      setState(() {
+                        realSelectedHobbies.remove(preferences[index]);
+                      });
+
                       print('remove');
                     }
                   });

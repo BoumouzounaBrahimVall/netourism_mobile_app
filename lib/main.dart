@@ -1,6 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:netourism_mobile_app/constants/constants.dart';
+import 'package:netourism_mobile_app/screens/sign_in_up/sign_in/sign_in_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/constants/cameras.dart';
 import '/constants/current_location.dart';
 import '/constants/routes.dart';
@@ -10,6 +13,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   curentLocation = await NetourismLocation.getLocation();
   cameras = await availableCameras();
+  final prefs = await SharedPreferences.getInstance();
+  bool? isConnected = prefs.getBool(CacheVariableNames.isConnected);
+  if (isConnected == false) {
+    routes['/'] = (context) => const SignInScreen();
+  }
   runApp(const ProviderScope(child: MyApp()));
 }
 

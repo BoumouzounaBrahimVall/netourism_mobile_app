@@ -6,6 +6,8 @@ import 'package:netourism_mobile_app/models/choice_model.dart';
 class CacheVariableNames {
   static const String isConnected = 'isConnected';
   static const String token = 'token';
+  static const String fullName = 'fullName';
+  static const String email = 'email';
 }
 
 const baseUrl = "";
