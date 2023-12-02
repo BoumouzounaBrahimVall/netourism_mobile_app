@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:netourism_mobile_app/constants/current_location.dart';
+import 'package:netourism_mobile_app/widgets/toast_widget.dart';
 import '/constants/constants.dart';
 import '/services/events/images_upload.dart';
 import '/screens/main/stories/widgets/stories_navigation_widget.dart';
@@ -51,6 +52,10 @@ class _MapScreenState extends State<MapScreen> {
     //StoriesScreen
     List<String> imagePaths =
         await fetchImages(location); //LatLng(33.7011138, -7.3621081)
+    if (imagePaths.isEmpty) {
+      ToastWidget.showToast(context: context, text: "Oups! no event to show");
+      return;
+    }
     print(imagePaths);
     List<Story> stories = imagePaths
         .map((e) => Story(

@@ -9,8 +9,10 @@ import '/screens/onbroading/splash_screen.dart';
 //final prefs = await SharedPreferences.getInstance();
 
 Map<String, WidgetBuilder> routes = {
-  "/": (context) => const PreferenceScreen(), //HomeScreenNavigationWidget
+  "/": (context) => const SplashScreen(), //HomeScreenNavigationWidget
   SignInScreen.routeName: (context) => const SignInScreen(),
   SignUpScreen.routeName: (context) => const SignUpScreen(),
+  HomeScreenNavigationWidget.routeName: (context) =>
+      const HomeScreenNavigationWidget(),
   PreferenceScreen.routeName: (context) => const PreferenceScreen(),
 };

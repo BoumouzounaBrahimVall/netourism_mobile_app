@@ -39,6 +39,10 @@ Future<List<String>> fetchImages(LatLng location) async {
     if (response.statusCode == 200) {
       // If the request is successful, parse the response body
       final Map<String, dynamic> responseData = json.decode(response.body);
+      final int status = responseData['message']['status'];
+      if (status != 200) {
+        return [];
+      }
       // Extract the "imagePaths" list from the response
       final List<dynamic> imagePaths = responseData['message']['imagePaths'];
 

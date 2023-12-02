@@ -11,13 +11,9 @@ import '/constants/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   curentLocation = await NetourismLocation.getLocation();
   cameras = await availableCameras();
-  final prefs = await SharedPreferences.getInstance();
-  bool? isConnected = prefs.getBool(CacheVariableNames.isConnected);
-  if (isConnected == false) {
-    routes['/'] = (context) => const SignInScreen();
-  }
   runApp(const ProviderScope(child: MyApp()));
 }
 

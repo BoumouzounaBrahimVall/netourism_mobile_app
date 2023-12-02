@@ -6,6 +6,8 @@ import '/screens/main/profile/profile_screen.dart';
 
 class HomeScreenNavigationWidget extends StatefulWidget {
   const HomeScreenNavigationWidget({super.key});
+  static const String routeName = 'home_screen_navigation';
+
   final currentScreen = 0;
   @override
   State<HomeScreenNavigationWidget> createState() =>
