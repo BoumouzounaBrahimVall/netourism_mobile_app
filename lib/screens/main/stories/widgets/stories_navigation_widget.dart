@@ -8,7 +8,13 @@ import '../../../../../../../../data/users_stories_data.dart';
 class GroupStories extends StatefulWidget {
   // final List<String> usersIds;
   final UserStories userStories;
-  const GroupStories({super.key, required this.userStories});
+  final String countryName;
+  final String cityName;
+  const GroupStories(
+      {super.key,
+      required this.userStories,
+      required this.countryName,
+      required this.cityName});
   @override
   State<GroupStories> createState() => _GroupStoriesState();
 }
@@ -51,8 +57,11 @@ class _GroupStoriesState extends State<GroupStories>
                   itemBuilder: (context, index) {
                     //    UserStories userStories =
                     //    getUserStoriesById(widget.usersIds[index]);
-                    final StoriesScreen story =
-                        StoriesScreen(userStories: widget.userStories);
+                    final StoriesScreen story = StoriesScreen(
+                      userStories: widget.userStories,
+                      cityName: widget.cityName,
+                      countryName: widget.countryName,
+                    );
                     // Calculate the rotation angle based on the current page index and scrolling direction
                     final isLeaving = (index - value) <= 0;
                     final t = (index - value);

@@ -31,18 +31,17 @@ Future<http.StreamedResponse> updateProfile(File? data) async {
 
 Future<List<String>> fetchImages(LatLng location) async {
   final url =
-      '$getImegesByLocationUri/${location.latitude}/${location.longitude}/300';
+      '$getImegesByLocationUri/${location.latitude}/${location.longitude}/750';
 
   try {
     final response = await http.get(Uri.parse(url));
-
+    if (response.statusCode != 200) {
+      return [];
+    }
     if (response.statusCode == 200) {
       // If the request is successful, parse the response body
       final Map<String, dynamic> responseData = json.decode(response.body);
-      final int status = responseData['message']['status'];
-      if (status != 200) {
-        return [];
-      }
+
       // Extract the "imagePaths" list from the response
       final List<dynamic> imagePaths = responseData['message']['imagePaths'];
 
@@ -56,6 +55,7 @@ Future<List<String>> fetchImages(LatLng location) async {
       throw Exception('Failed to load images');
     }
   } catch (e) {
+    return [];
     // Handle any exceptions that occurred during the request
     throw Exception('Error: $e');
   }

@@ -9,8 +9,13 @@ import 'widgets/infos_story_widget.dart';
 import 'widgets/progress_bar_widget.dart';
 
 class StoriesScreen extends StatefulWidget {
-  const StoriesScreen({super.key, required this.userStories});
-
+  const StoriesScreen(
+      {super.key,
+      required this.userStories,
+      required this.countryName,
+      required this.cityName});
+  final String countryName;
+  final String cityName;
   final UserStories userStories;
 
   @override
@@ -303,8 +308,8 @@ class _StoriesScreenState extends State<StoriesScreen>
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "A wonderful moments we're living",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -312,12 +317,12 @@ class _StoriesScreenState extends State<StoriesScreen>
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
                                   Text(
-                                    "Riad Essalam - Mohammedia",
-                                    style: TextStyle(
+                                    "${widget.cityName} - ${widget.countryName}",
+                                    style: const TextStyle(
                                         fontSize: 10, color: Colors.white),
                                   ),
                                 ],

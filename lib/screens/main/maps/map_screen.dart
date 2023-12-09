@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:netourism_mobile_app/constants/current_location.dart';
+import 'package:netourism_mobile_app/services/location_names_service.dart';
 import 'package:netourism_mobile_app/widgets/toast_widget.dart';
 import '/constants/constants.dart';
 import '/services/events/images_upload.dart';
@@ -49,6 +50,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> getImages(LatLng location, BuildContext context) async {
+    print("object");
     //StoriesScreen
     List<String> imagePaths =
         await fetchImages(location); //LatLng(33.7011138, -7.3621081)
@@ -56,6 +58,8 @@ class _MapScreenState extends State<MapScreen> {
       ToastWidget.showToast(context: context, text: "Oups! no event to show");
       return;
     }
+    Map<String, String> locationName =
+        await fetchLocationDetails(location.latitude, location.longitude);
     print(imagePaths);
     List<Story> stories = imagePaths
         .map((e) => Story(
@@ -74,7 +78,10 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.of(context).push(
       SlideLeftRouteWidget(
         //StoriesScreen(userStories: userStories)
-        GroupStories(userStories: userStories),
+        GroupStories(
+            userStories: userStories,
+            cityName: locationName["city"] ?? "",
+            countryName: locationName["country"] ?? ""),
       ),
     );
   }
@@ -90,6 +97,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> getCurentEventsLocations() async {
+    print("vall ");
     eventLocations = await fetchLocations();
   }
 
@@ -142,7 +150,7 @@ class _MapScreenState extends State<MapScreen> {
                   options: MapOptions(
                     minZoom: 5,
                     maxZoom: 16,
-                    zoom: 11,
+                    zoom: 13,
                     center: centerLocation,
                     onTap: (tapPosition, point) async {
                       debugPrint(
@@ -162,8 +170,22 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                     MarkerLayer(
                       markers: eventLocations
-                          .map(
-                            (e) => Marker(
+                          .map((e) => Marker(
+                                    width: 40, //5 * mapController.zoom
+                                    height: 40,
+                                    point: e,
+                                    builder: (context) {
+                                      return SizedBox(
+                                        child: Image.asset(
+                                          "assets/images/marker.png",
+                                          height: 150,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      );
+                                    },
+                                  )
+
+                              /*Marker(
                               point: e,
                               width: 10,
                               height: 10,
@@ -176,8 +198,8 @@ class _MapScreenState extends State<MapScreen> {
                                   ),
                                 );
                               },
-                            ),
-                          )
+                            ),*/
+                              )
                           .toList()
                       /*
                   Marker(
