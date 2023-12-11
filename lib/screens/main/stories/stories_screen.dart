@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:feather_icons_svg/feather_icons_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:netourism_mobile_app/story_model.dart';
 import 'package:netourism_mobile_app/user_stories_model.dart';
@@ -309,28 +308,17 @@ class _StoriesScreenState extends State<StoriesScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    "A wonderful moments we're living",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
                                   Text(
                                     "${widget.cityName} - ${widget.countryName}",
                                     style: const TextStyle(
-                                        fontSize: 10, color: Colors.white),
+                                        fontSize: 14, color: Colors.white),
                                   ),
                                 ],
                               ),
                             ),
                             IconButton(
                                 onPressed: () {},
-                                icon: const FeatherIcon(FeatherIcons.heart))
+                                icon: const Icon(Icons.location_city_rounded))
                           ],
                         )),
                   )

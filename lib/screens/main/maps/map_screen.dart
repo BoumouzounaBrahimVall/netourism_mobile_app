@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:netourism_mobile_app/constants/current_location.dart';
 import 'package:netourism_mobile_app/services/location_names_service.dart';
 import 'package:netourism_mobile_app/widgets/toast_widget.dart';
 import '/constants/constants.dart';

@@ -1,4 +1,3 @@
-import 'package:feather_icons_svg/feather_icons_svg.dart';
 import 'package:flutter/material.dart';
 
 class InfosStoryWidget extends StatelessWidget {
@@ -51,15 +50,15 @@ class InfosStoryWidget extends StatelessWidget {
           ),
         ),
         IconButton(
-            icon: const FeatherIcon(
-              FeatherIcons.moreHorizontal,
+            icon: const Icon(
+              Icons.more_horiz,
               color: Colors.white,
               size: 28,
             ),
             onPressed: () => print("object")),
         IconButton(
-          icon: const FeatherIcon(
-            FeatherIcons.x,
+          icon: const Icon(
+            Icons.close_rounded,
             color: Colors.white,
             size: 40,
           ),

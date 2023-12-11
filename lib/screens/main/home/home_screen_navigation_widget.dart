@@ -1,4 +1,3 @@
-import 'package:feather_icons_svg/feather_icons_svg.dart';
 import 'package:flutter/material.dart';
 import '/screens/main/home/camera_screen.dart';
 import '/screens/main/maps/map_screen.dart';
@@ -8,7 +7,7 @@ class HomeScreenNavigationWidget extends StatefulWidget {
   const HomeScreenNavigationWidget({super.key});
   static const String routeName = 'home_screen_navigation';
 
-  final currentScreen = 0;
+  final currentScreen = 2;
   @override
   State<HomeScreenNavigationWidget> createState() =>
       _HomeScreenNavigationWidgetState();
@@ -99,8 +98,8 @@ class _HomeScreenNavigationWidgetState
             ),
             child: IconButton(
               iconSize: 32,
-              icon: FeatherIcon(
-                FeatherIcons.map,
+              icon: Icon(
+                Icons.map_rounded,
                 color: _currentIndex == 0 ? Colors.white : iconColor,
               ),
               onPressed: () {
@@ -125,8 +124,8 @@ class _HomeScreenNavigationWidgetState
             ),
             child: IconButton(
               iconSize: 32,
-              icon: FeatherIcon(
-                FeatherIcons.camera,
+              icon: Icon(
+                Icons.camera_alt_rounded,
                 color: _currentIndex == 1 ? Colors.white : iconColor,
               ),
               onPressed: () {
@@ -151,8 +150,8 @@ class _HomeScreenNavigationWidgetState
             ),
             child: IconButton(
               iconSize: 32,
-              icon: FeatherIcon(
-                FeatherIcons.user,
+              icon: Icon(
+                Icons.person,
                 color: _currentIndex == 2 ? Colors.white : iconColor,
               ),
               onPressed: () {

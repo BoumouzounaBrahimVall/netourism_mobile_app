@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:feather_icons_svg/feather_icons_svg.dart';
 import 'package:flutter/material.dart';
 import '../../../services/events/images_upload.dart';
 
@@ -40,10 +39,10 @@ class _CameraImageEditorScreenState extends State<CameraImageEditorScreen> {
                 Navigator.of(context).pop();
               },
               iconSize: 34,
-              icon: const FeatherIcon(
-                FeatherIcons.x,
+              icon: const Icon(
+                Icons.close,
                 color: Colors.white,
-                strokeWidth: 3,
+                // strokeWidth: 3,
               ),
             ),
           ),
@@ -78,10 +77,10 @@ class _CameraImageEditorScreenState extends State<CameraImageEditorScreen> {
                       return value;
                     });
                   },
-                  icon: const FeatherIcon(
-                    FeatherIcons.send,
+                  icon: const Icon(
+                    Icons.send,
                     color: Colors.white,
-                    strokeWidth: 3,
+                    // strokeWidth: 3,
                   ))
             ],
           )),
